@@ -61,11 +61,11 @@ goto MENU
 :TEMP
 echo.
 echo [*] Limpiando archivos temporales de usuario y sistema...
-del /s /f /q "%TEMP%\*.*" >nul 2>&1
-for /d %%p in ("%TEMP%\*.*") do rmdir "%%p" /s /q >nul 2>&1
+for /d %%p in ("%TEMP%\*") do rmdir "%%p" /s /q >nul 2>&1
+for %%f in ("%TEMP%\*") do if /i not "%%~nxf"=="%~nx0" del /f /q "%%f" >nul 2>&1
 
 del /s /f /q "C:\Windows\Temp\*.*" >nul 2>&1
-for /d %%p in ("C:\Windows\Temp\*.*") do rmdir "%%p" /s /q >nul 2>&1
+for /d %%p in ("C:\Windows\Temp\*") do rmdir "%%p" /s /q >nul 2>&1
 
 del /s /f /q "C:\Windows\Prefetch\*.*" >nul 2>&1
 echo [+] Archivos temporales eliminados.
@@ -90,7 +90,7 @@ net stop bits >nul 2>&1
 
 echo [*] Eliminando cache de descargas...
 del /s /f /q "C:\Windows\SoftwareDistribution\Download\*.*" >nul 2>&1
-for /d %%p in ("C:\Windows\SoftwareDistribution\Download\*.*") do rmdir "%%p" /s /q >nul 2>&1
+for /d %%p in ("C:\Windows\SoftwareDistribution\Download\*") do rmdir "%%p" /s /q >nul 2>&1
 
 echo [*] Reiniciando servicios de Windows Update...
 net start wuauserv >nul 2>&1
